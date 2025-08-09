@@ -22,9 +22,23 @@ int main(int argc, const char *argv[]) {
             [NSString stringWithContentsOfFile:templateFile
                                       encoding:NSUTF8StringEncoding
                                          error:nil];
+        
         NSArray *lines = [content componentsSeparatedByString:@"\n"];
+        int spaces = 0;
+        NSString *parent = @"";
+        
         for (NSString *line in lines) {
-            // TODO: Continue with stuff of line
+            if (line.length < 3) {
+                @throw @"Invalid template file";
+            }
+            
+            bool isDirectory = [line characterAtIndex:spaces] == '/';
+            if (isDirectory) {
+                NSString *directoryName = [line substringFromIndex:spaces + 1];
+                
+            } else {
+                
+            }
         }
     }
     return 0;
