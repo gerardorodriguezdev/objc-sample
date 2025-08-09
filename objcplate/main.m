@@ -22,22 +22,33 @@ int main(int argc, const char *argv[]) {
             [NSString stringWithContentsOfFile:templateFile
                                       encoding:NSUTF8StringEncoding
                                          error:nil];
-        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+
         NSArray *lines = [content componentsSeparatedByString:@"\n"];
         int spaces = 0;
         NSString *parent = @"";
-        
+
         for (NSString *line in lines) {
             if (line.length < 3) {
                 @throw @"Invalid template file";
             }
-            
+
             bool isDirectory = [line characterAtIndex:spaces] == '/';
             if (isDirectory) {
                 NSString *directoryName = [line substringFromIndex:spaces + 1];
-                
+                NSString *path = [parent stringByAppendingString:directoryName];
+                [fileManager createDirectoryAtPath:path
+                       withIntermediateDirectories:true
+                                        attributes:nil
+                                             error:nil];
+                parent = [parent
+                    stringByAppendingString:[directoryName
+                                                stringByAppendingString:@"/"]];
+                spaces += 2;
             } else {
-                
+                NSString *fileName = [line substringFromIndex:spaces];
+                NSString *path = [parent stringByAppendingString:fileName];
+                [fileManager createFileAtPath:path contents:nil attributes:nil];
             }
         }
     }
