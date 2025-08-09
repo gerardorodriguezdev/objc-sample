@@ -18,6 +18,14 @@ NSString *getTemplateFile(int argc, const char *argv[]) {
 int main(int argc, const char *argv[]) {
     @autoreleasepool {
         NSString *templateFile = getTemplateFile(argc, argv);
+        NSString *content =
+            [NSString stringWithContentsOfFile:templateFile
+                                      encoding:NSUTF8StringEncoding
+                                         error:nil];
+        NSArray *lines = [content componentsSeparatedByString:@"\n"];
+        for (NSString *line in lines) {
+            // TODO: Continue with stuff of line
+        }
     }
     return 0;
 }
