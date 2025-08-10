@@ -1,6 +1,4 @@
-# ObjCPlate
-
-A simple command line utility written in Objective-C for creating directory structures and files from text-based templates.
+Objective-c sample of a simple command line utility for creating directory structures and files from text-based templates.
 
 ## Template format
 
